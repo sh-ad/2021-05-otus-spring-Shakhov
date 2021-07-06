@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class DataConnectorImpl implements DataConnector {
-    private static String SPLITTER = ";";
+    private static final String SPLITTER = ";";
     private String questionFileName;
     private String answerFileName;
 
@@ -38,11 +38,11 @@ public class DataConnectorImpl implements DataConnector {
 
     private Question stringToQuestion(String line) {
         String[] fields = line.split(SPLITTER);
-        return new Question(Integer.parseInt(fields[0]), fields[1], getAnswers(Integer.parseInt(fields[0])));
+        return new Question(Integer.parseInt(fields[0]), fields[1], findAnswers(Integer.parseInt(fields[0])));
     }
 
     @Override
-    public List<Answer> getAnswers(int question_id) {
+    public List<Answer> findAnswers(int question_id) {
         List<Answer> answers = new ArrayList<>();
         Resource resource = new ClassPathResource(answerFileName);
         try (Reader reader = new InputStreamReader(resource.getInputStream(), UTF_8)) {
