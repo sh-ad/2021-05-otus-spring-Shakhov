@@ -9,5 +9,5 @@ public interface DataConnector {
 
     List<Question> findQuestions();
 
-    List<Answer> getAnswers();
+    List<Answer> getAnswers(int question_id);
 }

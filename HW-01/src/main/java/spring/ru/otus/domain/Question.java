@@ -1,6 +1,7 @@
 package spring.ru.otus.domain;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Question {
     private int id;
@@ -39,10 +40,11 @@ public class Question {
 
     @Override
     public String toString() {
-        return "Question{" +
-                "id=" + id +
-                ", text='" + text + '\'' +
-                ", answers=" + answers +
-                '}';
+        return "Question: " +
+                text + "\n" +
+                "   answers:" + "\n     " +
+                answers.stream()
+                        .map(Answer::getText)
+                .collect(Collectors.joining("\n     "));
     }
 }

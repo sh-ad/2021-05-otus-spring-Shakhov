@@ -11,8 +11,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UncheckedIOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -38,12 +38,29 @@ public class DataConnectorImpl implements DataConnector {
 
     private Question stringToQuestion(String line) {
         String[] fields = line.split(SPLITTER);
-        return new Question(Integer.parseInt(fields[0]), fields[1], Collections.emptyList());
+        return new Question(Integer.parseInt(fields[0]), fields[1], getAnswers(Integer.parseInt(fields[0])));
     }
 
     @Override
-    public List<Answer> getAnswers() {
-        return null;
+    public List<Answer> getAnswers(int question_id) {
+        List<Answer> answers = new ArrayList<>();
+        Resource resource = new ClassPathResource(answerFileName);
+        try (Reader reader = new InputStreamReader(resource.getInputStream(), UTF_8)) {
+            String csv = FileCopyUtils.copyToString(reader);
+            for (String answerLine : csv.split(System.getProperty("line.separator"))) {
+                answers.add(stringToAnswer(answerLine));
+            }
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
+        return answers.stream()
+                .filter(f -> question_id == f.getQuestion_id())
+                .collect(Collectors.toList());
+    }
+
+    private Answer stringToAnswer(String line) {
+        String[] fields = line.split(SPLITTER);
+        return new Answer(Integer.parseInt(fields[0]), Integer.parseInt(fields[1]), fields[2]);
     }
 
     public void setQuestionFileName(String questionFileName) {

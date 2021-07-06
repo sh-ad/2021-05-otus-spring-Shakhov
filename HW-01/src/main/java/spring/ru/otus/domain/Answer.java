@@ -37,10 +37,6 @@ public class Answer {
 
     @Override
     public String toString() {
-        return "Answer{" +
-                "id=" + id +
-                ", question_id=" + question_id +
-                ", text='" + text + '\'' +
-                '}';
+        return text;
     }
 }
