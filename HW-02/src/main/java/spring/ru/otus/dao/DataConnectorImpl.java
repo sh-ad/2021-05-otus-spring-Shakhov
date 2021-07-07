@@ -1,7 +1,9 @@
 package spring.ru.otus.dao;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 import spring.ru.otus.domain.Answer;
 import spring.ru.otus.domain.Question;
@@ -16,9 +18,12 @@ import java.util.stream.Collectors;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+@Component
 public class DataConnectorImpl implements DataConnector {
     private static final String SPLITTER = ";";
+    @Value("${file.path.question}")
     private String questionFileName;
+    @Value("${file.path.answer}")
     private String answerFileName;
 
     @Override
