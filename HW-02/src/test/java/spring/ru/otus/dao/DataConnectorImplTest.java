@@ -7,7 +7,6 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import spring.ru.otus.domain.Answer;
-import spring.ru.otus.domain.Question;
 import spring.ru.otus.service.QuizService;
 import spring.ru.otus.service.QuizServiceImpl;
 
@@ -26,21 +25,6 @@ public class DataConnectorImplTest extends TestCase {
         dataConnector.setQuestionFileName("questions_test.csv");
 
         quizService = new QuizServiceImpl(dataConnector);
-    }
-
-    @Test
-    public void testFindQuestions() {
-        List<Question> questions = quizService.getQuestion();
-        assertEquals("[Question: what?\n" +
-                        "   answers:\n" +
-                        "     first answer\n" +
-                        "     second answer, Question: where?\n" +
-                        "   answers:\n" +
-                        "     third answer, Question: when?\n" +
-                        "   answers:\n" +
-                        "     ]",
-                questions.toString()
-        );
     }
 
     @Test

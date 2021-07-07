@@ -43,7 +43,7 @@ public class DataConnectorImpl implements DataConnector {
 
     private Question stringToQuestion(String line) {
         String[] fields = line.split(SPLITTER);
-        return new Question(Integer.parseInt(fields[0]), fields[1], findAnswers(Integer.parseInt(fields[0])));
+        return new Question(Integer.parseInt(fields[0]), fields[1], findAnswers(Integer.parseInt(fields[0])), Integer.parseInt(fields[2]));
     }
 
     @Override
