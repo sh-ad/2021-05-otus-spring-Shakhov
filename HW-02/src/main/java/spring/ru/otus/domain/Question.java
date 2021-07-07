@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Question {
-    private int id;
-    private String text;
-    private List<Answer> answers;
+    private final int id;
+    private final String text;
+    private final List<Answer> answers;
 
     public Question(int id, String text, List<Answer> answers) {
         this.id = id;
@@ -18,24 +18,12 @@ public class Question {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getText() {
         return text;
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
-
     public List<Answer> getAnswers() {
         return answers;
-    }
-
-    public void setAnswers(List<Answer> answers) {
-        this.answers = answers;
     }
 
     @Override
